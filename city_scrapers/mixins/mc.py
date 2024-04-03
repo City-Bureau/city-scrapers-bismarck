@@ -66,7 +66,6 @@ class MCMixin(CityScrapersSpider, metaclass=MCMixinMeta):
         """
         Parse a list of meetings from the response.
         """
-        print("donkey", response)
         items = response.json()
         if not items or len(items) == 0 or "value" not in items:
             self.logger.warning("No meetings found")
