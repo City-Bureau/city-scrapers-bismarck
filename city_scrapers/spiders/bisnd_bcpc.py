@@ -1,8 +1,9 @@
-from city_scrapers_core.constants import COMMISSION
-from city_scrapers_core.spiders import CityScrapersSpider
-from city_scrapers_core.items import Meeting
-from dateutil.parser import parse
 from urllib.parse import urljoin
+
+from city_scrapers_core.constants import COMMISSION
+from city_scrapers_core.items import Meeting
+from city_scrapers_core.spiders import CityScrapersSpider
+from dateutil.parser import parse
 
 
 class BisndBcpcSpider(CityScrapersSpider):
