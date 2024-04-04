@@ -73,7 +73,7 @@ class BisndBcpcSpider(CityScrapersSpider):
         year = date.split()[-1]
         minutes_href = (
             response.xpath(
-                f'//a[contains(text(), "{year} Planning and Zoning Commission Minutes")]' # noqa
+                f'//a[contains(text(), "{year} Planning and Zoning Commission Minutes")]'  # noqa
             )
             .css("::attr(href)")
             .get()
