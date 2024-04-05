@@ -14,13 +14,13 @@ class BisndBcpcSpider(CityScrapersSpider):
         "https://www.burleigh.gov/government/boardscommittees/planning-zoning-commission/"  # noqa
     ]
     location = {
-        "name": "Tom Baker Room, City/County Building",
-        "address": "221 N 5th St, Bismarck",
+        "name": "Tom Baker Room",
+        "address": "City/County Building, 221 N 5th St, Bismarck",
     }
 
     def parse(self, response):
         """
-        `parse` should always `yield` Meeting items.
+        Parse meeting items from agency website.
         """
         time = response.css(".tbltitle p::text").get()
         link1 = response.css(".info p")[6].css("a::attr(href)").get()
@@ -55,18 +55,24 @@ class BisndBcpcSpider(CityScrapersSpider):
                 yield meeting
 
     def _parse_date(self, item):
-        """Parse start date"""
+        """Parse start date. Used in multiple functions."""
         return item.css("td:first_child::text").get()
 
     def _parse_start(self, item, time):
-        """Parse start datetime as a naive datetime object."""
+        """
+        Parse start datetime as a naive datetime object.
+        Combine the date from the table with the time found in a paragraph.
+        """
         date = self._parse_date(item)
         parsed_datetime = parse(f"{date} {time}")
 
         return parsed_datetime
 
     def _parse_links(self, response, links, item):
-        """Parse or generate links."""
+        """
+        Parse links. Agenda and Minutes links are sometimes present.
+        Video and radio coverage links are always given.
+        """
         output = links.copy()
         date = self._parse_date(item)
         # get minutes link

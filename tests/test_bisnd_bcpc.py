@@ -60,8 +60,8 @@ def test_status():
 
 def test_location():
     assert parsed_items[0]["location"] == {
-        "name": "Tom Baker Room, City/County Building",
-        "address": "221 N 5th St, Bismarck",
+        "name": "Tom Baker Room",
+        "address": "City/County Building, 221 N 5th St, Bismarck",
     }
 
 
