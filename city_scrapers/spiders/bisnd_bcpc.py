@@ -19,9 +19,7 @@ class BisndBcpcSpider(CityScrapersSpider):
     }
 
     def parse(self, response):
-        """
-        Parse meeting items from agency website.
-        """
+        """Parse meeting items from agency website."""
         time = response.css(".tbltitle p::text").get()
         link1 = response.css(".info p")[6].css("a::attr(href)").get()
         link2 = response.css(".info p")[7].css("a::attr(href)").get()
@@ -36,16 +34,17 @@ class BisndBcpcSpider(CityScrapersSpider):
             if not item.css("td"):
                 continue
             else:
+                date = item.css("td:first_child::text").get()
                 meeting = Meeting(
                     title="Planning & Zoning Commission Monthly Meeting",
                     description="",
                     classification=COMMISSION,
-                    start=self._parse_start(item, time),
+                    start=self._parse_start(date, time),
                     end=None,
                     all_day=False,
                     time_notes="",
                     location=self.location,
-                    links=self._parse_links(response, links, item),
+                    links=self._parse_links(response, links, date),
                     source=response.url,
                 )
 
@@ -54,27 +53,21 @@ class BisndBcpcSpider(CityScrapersSpider):
 
                 yield meeting
 
-    def _parse_date(self, item):
-        """Parse start date. Used in multiple functions."""
-        return item.css("td:first_child::text").get()
-
-    def _parse_start(self, item, time):
+    def _parse_start(self, date, time):
         """
         Parse start datetime as a naive datetime object.
         Combine the date from the table with the time found in a paragraph.
         """
-        date = self._parse_date(item)
         parsed_datetime = parse(f"{date} {time}")
 
         return parsed_datetime
 
-    def _parse_links(self, response, links, item):
+    def _parse_links(self, response, links, date):
         """
         Parse links. Agenda and Minutes links are sometimes present.
         Video and radio coverage links are always given.
         """
         output = links.copy()
-        date = self._parse_date(item)
         # get minutes link
         year = date.split()[-1]
         minutes_href = (

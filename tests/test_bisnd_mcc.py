@@ -54,7 +54,7 @@ def test_status():
 
 def test_location():
     assert parsed_item["location"] == {
-        "address": "Morton County Commission Room",  # noqa shouldn't "address" value contain the street/city/state instead of "name" value?
+        "address": "Morton County Commission Room",
         "name": "Morton County Courthouse, 210 2nd Ave NW, Mandan ND",
     }
 
