@@ -56,8 +56,7 @@ def test_location():
 
 def test_source():
     assert (
-        parsed_items[0]["source"]
-        == "https://mandannd.api.civicclerk.com/v1/Events?$filter=categoryId+in+(26)+and+startDateTime+ge+2024-02-12T10:00:00Z+and+startDateTime+le+2024-09-12T10:00:00Z&$orderby=startDateTime"  # noqa
+        parsed_items[0]["source"] == "https://mandannd.portal.civicclerk.com/"  # noqa
     )
 
 
