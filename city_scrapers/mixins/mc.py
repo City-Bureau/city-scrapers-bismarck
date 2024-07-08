@@ -81,7 +81,7 @@ class MCMixin(CityScrapersSpider, metaclass=MCMixinMeta):
                 time_notes="",
                 location=self._parse_location(item["eventLocation"]),
                 links=self._parse_links(item),
-                source=response.url,
+                source="https://mandannd.portal.civicclerk.com/",
             )
             meeting["status"] = self._get_status(meeting)
             meeting["id"] = self._get_id(meeting)
