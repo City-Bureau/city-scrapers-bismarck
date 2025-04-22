@@ -5,6 +5,9 @@ on:
     # Set any time that you'd like scrapers to run (in UTC)
     - cron: "1 6 * * *"
   workflow_dispatch:
+  push:
+    branches:
+      - fix-failed-access-repo
 
 env:
   CI: true
@@ -22,7 +25,7 @@ env:
 
 jobs:
   crawl:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
